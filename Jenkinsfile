@@ -1,16 +1,16 @@
 pipeline {
-   agent none
+   agent any
    environment {
         ENV = "dev"
-        NODE = "Build-server"
+        NODE = "build-server"
     }
 
    stages {
     stage('Build Image') {
         agent {
             node {
-                label "Build-server"
-                customWorkspace "/home/ubuntu/jenkins/multi-branch/devops-training-$ENV/"
+                label "build-server"
+                customWorkspace "/var/jenkins_home/devops-training-$ENV/"
                 }
             }
         environment {
@@ -37,14 +37,14 @@ pipeline {
 	    agent {
         node {
             label "Target-Server"
-                customWorkspace "/home/ubuntu/jenkins/multi-branch/devops-training-$ENV/"
+                customWorkspace "/var/jenkins_home/devops-training-$ENV/"
             }
         }
         environment {
             TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
         }
 	steps {
-            sh "sed -i 's/{tag}/$TAG/g' /home/ubuntu/jenkins/multi-branch/devops-training-$ENV/docker-compose.yaml"
+            sh "sed -i 's/{tag}/$TAG/g' /var/jenkins_home/devops-training-$ENV/docker-compose.yaml"
             sh "docker compose up -d"
         }      
        }
