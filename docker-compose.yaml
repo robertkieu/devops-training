@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     ports:
-      - "50000:50000"
+      - "3000:3000"
     environment:
       DB_HOST: db
       DB_USER: training
