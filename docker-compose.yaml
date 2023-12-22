@@ -17,7 +17,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - default
+      - app-network
 
   app:
     image: robertkieu/devops-training:dev
@@ -35,9 +35,8 @@ services:
       DB_PASSWORD: training_pw
       DB_DATABASE: users
     networks:
-      - default
+      - app-network
 
 networks:
-  default:
-    external: true
+  app-network:
     name: app-network
