@@ -2,7 +2,7 @@ FROM node:latest
 
 ARG BUILD_ENV=${BUILD_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
 
