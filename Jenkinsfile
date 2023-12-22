@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 sh "sed -i 's/{tag}/$TAG/g' /var/jenkins_home/workspace/devops-training/docker-compose.yaml"
-                sh "docker container prune"
+                sh "docker container prune -f"
                 sh "docker compose up -d"
             }      
        }
