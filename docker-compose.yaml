@@ -38,6 +38,6 @@ services:
       - app-network
 
 networks:
-  app-network:
+  default:
     external: true
     name: app-network
