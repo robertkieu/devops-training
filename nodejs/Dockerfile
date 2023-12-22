@@ -1,13 +1,17 @@
-FROM node:latest
+FROM node:10-alpine
 
-ARG BUILD_ENV=${BUILD_ENV}
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
-WORKDIR /app
+WORKDIR /home/node/app
 
-COPY package.json ./
+COPY package*.json ./
+
+USER node
 
 RUN npm install
 
+COPY --chown=node:node . .
+
 EXPOSE 3000
-WORKDIR /app
+
 CMD [ "npm", "start" ]
