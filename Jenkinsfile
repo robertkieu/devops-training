@@ -2,14 +2,14 @@ pipeline {
    agent any
    environment {
         ENV = "dev"
-        NODE = "build-server"
+        NODE = "build-node"
     }
 
    stages {
     stage('Build Image') {
         agent {
             node {
-                label "build-server"
+                label "build-node"
             }
         }
         environment {
