@@ -9,7 +9,7 @@ pipeline {
     stage('Build Image') {
         agent {
             node {
-                label "build-dev"
+                label "build-server"
             }
         }
         environment {
@@ -32,22 +32,22 @@ pipeline {
         }
          
        }
-	    stage ("Deploy ") {
-            agent {
-                node {
-                    label "build-dev"
-                }
-            }
-            environment {
-                TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
-            }
-            steps {
-                sh "sed -i 's/{tag}/$TAG/g' /var/jenkins_home/workspace/devops-training/docker-compose.yaml"
-                sh "docker stop app"
-                sh "docker container prune -f"
-                sh "docker compose up -d"
-            }      
-       }
+	//     stage ("Deploy ") {
+    //         agent {
+    //             node {
+    //                 label "build-server"
+    //             }
+    //         }
+    //         environment {
+    //             TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
+    //         }
+    //         steps {
+    //             sh "sed -i 's/{tag}/$TAG/g' /var/jenkins_home/workspace/devops-training/docker-compose.yaml"
+    //             sh "docker stop app"
+    //             sh "docker container prune -f"
+    //             sh "docker compose up -d"
+    //         }      
+    //    }
    }
     
 }
