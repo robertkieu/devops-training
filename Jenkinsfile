@@ -16,6 +16,10 @@ pipeline {
             TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
         }
          steps {
+            sh "brew install colima"
+            sh "brew install docker"
+            sh "brew services start colima"
+            sh "colima start"
             sh "docker build nodejs/. -t devops-training-nodejs-$ENV:latest --build-arg BUILD_ENV=$ENV -f nodejs/Dockerfile"
 
 
