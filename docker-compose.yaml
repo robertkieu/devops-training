@@ -16,8 +16,9 @@ services:
     restart: unless-stopped
     ports:
       - "3306:3306"
-    networks:
-      - jenkins
+    # networks:
+    #   - jenkins
+    network_mode: host
 
   app:
     image: robertkieu/devops-training:dev
@@ -34,11 +35,11 @@ services:
       DB_USER: training
       DB_PASSWORD: training_pw
       DB_DATABASE: users
-    networks:
-      - jenkins
+    # networks:
+    #   - jenkins
     network_mode: host
 
-networks:
-  jenkins:
-    name: jenkins
-    external: true
+# networks:
+#   jenkins:
+#     name: jenkins
+#     external: true
