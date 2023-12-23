@@ -17,7 +17,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - app-network
+      - jenkins
 
   app:
     image: robertkieu/devops-training:dev
@@ -35,8 +35,9 @@ services:
       DB_PASSWORD: training_pw
       DB_DATABASE: users
     networks:
-      - app-network
+      - jenkins
 
 networks:
   app-network:
-    name: app-network
+    name: jenkins
+    external: true
