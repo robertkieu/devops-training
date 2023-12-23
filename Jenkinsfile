@@ -2,19 +2,14 @@ pipeline {
    agent any
    environment {
         ENV = "dev"
-        NODE = "build-dev"
+        NODE = "build-server"
     }
 
    stages {
-    stage('Initialize')
-    {
-        def dockerHome = tool 'docker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
     stage('Build Image') {
         agent {
             node {
-                label "build-dev"
+                label "build-server"
             }
         }
         environment {
@@ -40,7 +35,7 @@ pipeline {
 	    stage ("Deploy ") {
             agent {
                 node {
-                    label "build-dev"
+                    label "build-server"
                 }
             }
             environment {
