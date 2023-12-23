@@ -43,7 +43,6 @@ pipeline {
             }
             steps {
                 sh "sudo sed -i 's/{tag}/$TAG/g' /home/ubuntu/jenkins_node/workspace/devops-training/docker-compose.yaml"
-                sh "sudo docker stop app"
                 sh "sudo docker container prune -f"
                 sh "sudo docker compose up -d"
             }      
