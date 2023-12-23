@@ -9,7 +9,7 @@ pipeline {
     stage('Build Image') {
         agent {
             node {
-                label "build-server"
+                label "build-dev"
             }
         }
         environment {
@@ -35,7 +35,7 @@ pipeline {
 	    stage ("Deploy ") {
             agent {
                 node {
-                    label "build-server"
+                    label "build-dev"
                 }
             }
             environment {
