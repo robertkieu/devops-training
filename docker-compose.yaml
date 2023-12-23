@@ -16,8 +16,8 @@ services:
     restart: unless-stopped
     ports:
       - "3306:3306"
-    # networks:
-    #   - app-network
+    networks:
+      - app-network
 
   app:
     image: robertkieu/devops-training:dev
@@ -34,11 +34,9 @@ services:
       DB_USER: training
       DB_PASSWORD: training_pw
       DB_DATABASE: users
-    links:
-      - db
-    # networks:
-    #   - app-network
+    networks:
+      - app-network
 
-    # networks:
-    #   app-network:
-    #     name: app-network
+networks:
+  app-network:
+    name: app-network
