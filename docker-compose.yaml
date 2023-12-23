@@ -38,6 +38,6 @@ services:
       - jenkins
 
 networks:
-  app-network:
+  jenkins:
     name: jenkins
     external: true
