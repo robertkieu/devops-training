@@ -44,7 +44,7 @@ pipeline {
             steps {
                 sh "sudo sed -i 's/{tag}/$TAG/g' /home/ubuntu/jenkins_deploy/workspace/devops-training/docker-compose.yaml"
                 sh "sudo docker container prune -f"
-                sh "sudo DOCKER_BUILDKIT=0 docker-compose up --build -d"
+                sh "sudo DOCKER_BUILDKIT=0 docker-compose up -d"
             }      
        }
    }
