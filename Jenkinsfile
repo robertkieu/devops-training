@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 sh "docker container prune -f"
-                sh "docker-compose -f /Users/kieuduckhuong/jenkins_deploy/workspace/devops-training/docker-compose.yaml up -d"
+                sh "docker-compose -f /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml up -d"
             }      
        }
    }
