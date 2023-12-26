@@ -20,7 +20,7 @@ services:
       - app-network
 
   app:
-    image: robertkieu/devops-training:dev
+    image: robertkieu/devops-training:${TAG}
     build:
       context: nodejs/.
       dockerfile: Dockerfile
