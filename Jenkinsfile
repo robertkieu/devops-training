@@ -42,6 +42,8 @@ pipeline {
                 TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
             }
             steps {
+                sh "docker stop app || true && docker rm app || true"
+                sh "docker stop db || true && docker rm db || true"
                 sh "docker container prune -f"
                 sh "sed -i '' 's/{TAG}/$TAG/g' /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml"
                 sh "docker-compose -f /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml up -d"
