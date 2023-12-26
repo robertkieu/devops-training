@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 sh "docker container prune -f"
-                sh "sed -i 's/{tag}/$TAG/g' /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml"
+                sh "sed -i '' 's/{TAG}/$TAG/g' /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml"
                 sh "docker-compose -f /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml up -d"
             }      
        }
