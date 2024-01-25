@@ -7,11 +7,12 @@ pipeline {
 
    stages {
     stage('Build Image') {
-        agent {
-            node {
-                label "gce-k8s-build"
-            }
-        }
+        agent any
+        // agent {
+        //     node {
+        //         label "gce-k8s-build"
+        //     }
+        // }
         environment {
             TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
         }
@@ -38,11 +39,11 @@ pipeline {
          
        }
 	    stage ("Deploy ") {
-            agent {
-                node {
-                    label "gce-k8s-build"
-                }
-            }
+            // agent {
+            //     node {
+            //         label "gce-k8s-build"
+            //     }
+            // }
             environment {
                 TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
             }
