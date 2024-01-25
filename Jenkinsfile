@@ -2,14 +2,14 @@ pipeline {
    agent any
    environment {
         ENV = "dev"
-        NODE = "mac-build"
+        NODE = "k8s-build"
     }
 
    stages {
     stage('Build Image') {
         agent {
             node {
-                label "mac-build"
+                label "k8s-build"
             }
         }
         environment {
@@ -23,8 +23,13 @@ pipeline {
             // tag docker image
             sh "docker tag devops-training-nodejs-$ENV:latest robertkieu/devops-training:$TAG"
 
+            sh "docker tag devops-training-nodejs-$ENV:latest robertkieu/devops-training:latest"
+
             //push docker image to docker hub
             sh "docker push robertkieu/devops-training:$TAG"
+            sh "docker push robertkieu/devops-training:latest"
+
+            
 
 	    // remove docker image to reduce space on build server	
             sh "docker rmi -f robertkieu/devops-training:$TAG"
@@ -35,18 +40,14 @@ pipeline {
 	    stage ("Deploy ") {
             agent {
                 node {
-                    label "mac-deploy"
+                    label "k8s-build"
                 }
             }
             environment {
                 TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
             }
             steps {
-                sh "docker stop app || true && docker rm app || true"
-                sh "docker stop db || true && docker rm db || true"
-                sh "docker container prune -f"
-                sh "sed -i '' 's/{TAG}/$TAG/g' /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml"
-                sh "docker-compose -f /Users/kieuduckhuong/jenkins_home/workspace/devops-training/docker-compose.yaml up -d"
+                sh "kubectl delete pods -l app=nodejs-app -n api"
             }      
        }
    }
