@@ -47,6 +47,8 @@ pipeline {
                 TAG = sh(returnStdout: true, script: "git rev-parse -short=10 HEAD | tail -n +2").trim()
             }
             steps {
+                sh "sudo -i"
+                sh "su - Xuanhihi"
                 sh "kubectl delete pods -l app=nodejs-app -n api"
             }      
        }
