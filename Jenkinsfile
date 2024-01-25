@@ -2,14 +2,14 @@ pipeline {
    agent any
    environment {
         ENV = "dev"
-        NODE = "k8s-build"
+        NODE = "gce-k8s-build"
     }
 
    stages {
     stage('Build Image') {
         agent {
             node {
-                label "k8s-build"
+                label "gce-k8s-build"
             }
         }
         environment {
@@ -40,7 +40,7 @@ pipeline {
 	    stage ("Deploy ") {
             agent {
                 node {
-                    label "k8s-build"
+                    label "gce-k8s-build"
                 }
             }
             environment {
